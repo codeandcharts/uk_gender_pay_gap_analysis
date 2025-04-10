@@ -1,105 +1,149 @@
-# Exploring the UK Gender Pay Gap Over Time* 
+# UK Gender Pay Gap Analysis
 
+![Project Banner](./images/project_banner.png)
 
-Absolutely! Crafting **strong research and guiding questions** is essential for building a compelling narrative in your portfolio project. These questions should lead to **insightful analysis**, **clear visualizations**, and **actionable recommendations**, just like a McKinsey-style consultant would present.
+## Overview
 
----
+This repository contains a comprehensive analysis of the UK gender pay gap from 2017 to 2025, using official government reporting data. The project explores trends over time, variations across different organizational characteristics, and relationships between different pay gap metrics to identify structural patterns in pay inequality and develop targeted recommendations.
 
-## 🧪 Main Research Question (The Big One)
+## Key Findings
 
-> **“How has the UK Gender Pay Gap evolved across sectors, company sizes, and regions from 2017 to 2025, and what are the key structural drivers behind it?”**
+- The overall gender pay gap has decreased from 15% in 2020 to 12.1% in 2025
+- Bonus pay gaps (28-34%) are more than double hourly pay gaps (12-14.7%)
+- Mid-sized organizations (5,000-19,999 employees) show the highest gaps (14.2%)
+- England shows higher gaps (12.5%) than other UK regions, with Northern Ireland lowest (7.8%)
+- Female representation in top pay quartiles has improved to approximately 40% by 2024
 
-This question drives the core of your project and allows you to build a story through multiple lenses: time, geography, sector, and company characteristics.
+## Repository Structure
 
----
+```
+uk-gender-pay-gap-analysis/
+│
+├── data/                      # Data directory
+│   ├── raw/                   # Raw data files
+│   ├── processed/             # Cleaned and processed data
+│   └── external/              # External reference data
+│
+├── notebooks/                 # Jupyter notebooks
+│   ├── 01_data_cleaning.ipynb         # Data preprocessing & cleaning
+│   ├── 02_exploratory_analysis.ipynb  # EDA & visualization
+│   ├── 03_statistical_analysis.ipynb  # Statistical testing
+│   ├── 04_time_series_analysis.ipynb  # Temporal pattern analysis
+│   └── 05_regional_analysis.ipynb     # Geographic analysis
+│
+├── src/                       # Source code
+│   ├── data/                  # Data processing scripts
+│   ├── features/              # Feature engineering
+│   ├── visualization/         # Visualization functions
+│   └── models/                # Statistical models
+│
+├── reports/                   # Generated analysis reports
+│   ├── figures/               # Generated graphics and figures
+│   └── UK_Gender_Pay_Gap_Analysis.pdf  # Final report
+│
+├── requirements.txt           # Project dependencies
+├── environment.yml            # Conda environment file
+├── methodology.md             # Detailed methodology documentation
+└── README.md                  # This file
+```
 
-## 🎯 Guided Sub-Questions (with Visual Suggestions)
+## Dataset Description
 
-Each of these builds depth and structure to your story.
+The dataset includes approximately 80,000 employer reports across nine reporting years (2017-2025). All UK employers with 250+ employees are required to report their gender pay gap data annually.
 
----
+### Key Variables
 
-### 📅 1. **How has the average gender pay gap changed over time?**
-- **Goal:** Spot national trend, positive or negative shifts.
-- **Visuals:** 
-  - Line chart: `DiffMeanHourlyPercent` & `DiffMedianHourlyPercent` over years.
-  - Side-by-side comparisons for hourly vs. bonus gaps.
+- **Pay Gap Metrics**: Mean/median hourly and bonus pay gaps
+- **Gender Distribution**: Percentage of employees by gender across pay quartiles
+- **Organizational Details**: Employer size, sector, region
+- **Reporting Information**: Submission date, compliance status
 
----
+## Installation and Usage
 
-### 💼 2. **Which company sizes report the largest gender pay gaps?**
-- **Goal:** Evaluate whether company scale affects pay disparity.
-- **Visuals:**
-  - Bar chart: `EmployerSize` vs `DiffMeanHourlyPercent` (aggregated mean).
-  - Boxplots by `EmployerSize` to show distribution.
+### Prerequisites
+- Python 3.11+
+- pip or conda for package management
 
----
+### Setup
+1. Clone this repository:
+   ```
+   git clone https://github.com/yourusername/uk-gender-pay-gap-analysis.git
+   cd uk-gender-pay-gap-analysis
+   ```
 
-### 🏢 3. **Are certain industries consistently showing higher gaps?**
-- **Goal:** Uncover structural issues in sectors like Finance, Tech, etc.
-- **Visuals:**
-  - Horizontal bar chart: Top 10 `SIC Code` groups by mean pay gap.
-  - Heatmap: Year vs Industry sector gap trends.
+2. Create and activate environment:
+   ```
+   # Using pip
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   
+   # OR using conda
+   conda env create -f environment.yml
+   conda activate uk-gender-pay-gap
+   ```
 
-📌 You’ll want to map `SicCodes` to industry names using a lookup table.
+3. Run Jupyter notebooks:
+   ```
+   jupyter lab
+   ```
 
----
+### Reproducing the Analysis
 
-### 📍 4. **How does the gender pay gap vary geographically across the UK?**
-- **Goal:** Highlight regional disparities.
-- **Visuals:**
-  - Choropleth or scatter map: Pay gap by `PostCode` or derived `Region`.
-  - Cluster map (Plotly or Folium): Color/size by `DiffMeanHourlyPercent`.
+The analysis can be reproduced by running the notebooks in numerical order:
+1. Data cleaning and preprocessing
+2. Exploratory data analysis
+3. Statistical testing and modeling
+4. Time series analysis
+5. Regional analysis
 
----
+## Visualization Gallery
 
-### 👥 5. **How are women represented in the top vs. bottom quartiles?**
-- **Goal:** Check leadership pipeline and wage mobility.
-- **Visuals:**
-  - Stacked bar chart: `FemaleTopQuartile` vs `MaleTopQuartile` per year.
-  - Quartile difference over time (line or area chart).
+The project includes various visualizations that reveal key patterns:
 
----
+- Time series plots showing pay gap trends from 2017-2025
+- Box plots displaying distributions by employer size and region
+- Bar charts comparing pay gaps across sectors
+- Choropleth maps of regional variations
+- Distribution plots showing hourly vs. bonus pay gaps
 
-### 💰 6. **What’s the difference in Bonus Pay distribution between genders?**
-- **Goal:** Analyze inequality in incentive compensation.
-- **Visuals:**
-  - Boxplot: `DiffMeanBonusPercent` vs `DiffMeanHourlyPercent`
-  - Bar chart: `MaleBonusPercent` vs `FemaleBonusPercent` by year or sector
+## Main Recommendations
 
----
+Based on the analysis, the following recommendations are proposed:
 
-### ⏳ 7. **Which companies are consistently late in submitting data, and does that correlate with worse gender gaps?**
-- **Goal:** Accountability and transparency pattern.
-- **Visuals:**
-  - Pie chart: % of companies that submit late
-  - Violin or boxplot: `DiffMeanHourlyPercent` by `SubmittedAfterTheDeadline`
+1. **Transform Bonus Systems**: Implement transparent criteria for bonus allocation
+2. **Target Mid-Sized Organizations**: Develop specialized programs for organizations with 5,000-19,999 employees
+3. **Adapt Regional Best Practices**: Study and implement policies from lower-gap regions across the UK
+4. **Support Vertical Mobility**: Create programs to advance women from middle to upper pay quartiles
+5. **Develop Sector-Specific Strategies**: Create tailored approaches for high-gap sectors
 
----
+## Methodology
 
-### 📈 8. **Can we predict future gender pay gaps or bonus trends using regression?**
-- **Goal:** Add forecasting or light ML to show value.
-- **Visuals:**
-  - Regression plot or trend line projection (e.g., `sklearn.LinearRegression`)
-  - Highlight if certain regions/industries are improving faster
+A detailed methodology document is available in [methodology.md](methodology.md), covering:
+- Data preparation and cleaning procedures
+- Statistical methods
+- Visualization approaches
+- Limitations and considerations
 
----
+## Dependencies
 
-## 🧩 Bonus Analysis Ideas (if time allows)
+- **Data Processing**: pandas, numpy
+- **Visualization**: matplotlib, seaborn
+- **Statistical Analysis**: scipy, statsmodels
+- **Machine Learning**: scikit-learn
 
-- **Clustering:** Group similar companies by gap profile (KMeans on quartiles, bonuses, etc.)
-- **Ranking:** Top 10 most improved vs. worst regressed companies over the years
-- **Correlation Heatmap:** Between all gap-related columns
+## License
 
----
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 📌 Recommendation Section (Final Output)
+## Acknowledgments
 
-Turn your findings into actionable takeaways, e.g.:
+- UK Government Gender Pay Gap Service for providing the data
+- All employers who submitted comprehensive reports
+- Open source Python community for the tools used in this analysis
 
-- “Targeted interventions are needed in mid-sized tech firms with high bonus gaps.”
-- “Postcodes in [region] show consistent leadership gender imbalance.”
+## Contact
 
----
-
-Would you like a ready-to-use template in a Jupyter Notebook or a Streamlit dashboard with dropdowns to explore these guided questions interactively?
+For questions or feedback, please contact:
+- Your Name - [your.email@example.com](mailto:your.email@example.com)
+- Project Link: [https://github.com/yourusername/uk-gender-pay-gap-analysis](https://github.com/yourusername/uk-gender-pay-gap-analysis)
